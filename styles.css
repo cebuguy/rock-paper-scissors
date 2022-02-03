@@ -1,0 +1,22 @@
+body {
+   font-family: sans-serif;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+#action {
+    width: 35vh;
+    height: 20vh;
+    background-color: aliceblue;
+    border: 1px solid black;    
+}
+
+#score {
+    width: 35vh;
+    height: 10vh;
+    background-color: lightyellow;
+    border: 1px solid black;
+    margin: 0.5em 0;
+}
