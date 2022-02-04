@@ -69,7 +69,7 @@ const playRound = function() {
             round++;
             displayScore('tie');
             break;
-        case (playerChoice === 'scissors' && compChoice === ''):
+        case (playerChoice === 'scissors' && compChoice === 'paper'):
             round++;
             playerScore++;
             displayScore('win');
