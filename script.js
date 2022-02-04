@@ -1,5 +1,7 @@
-//global score counter
-let result = 0;
+//global score/round counters
+let playerScore = 0;
+let compScore = 0;
+let round = 0;
 
 //reference buttons
 const rockBtn = document.getElementById('rock');
@@ -16,67 +18,86 @@ const computerPlay = function() {
     if(num === 1) return "rock";
     else if (num === 2) return "paper";
     else return "scissors";
-}
+};
 
-//function if player chooses rock
-const rockPlay = function() {
-    alert(this);
+const displayScore = function(choice) {
+    if(choice === 'win') actionBox.textContent = 'You win this round.';
+    else if(choice === 'lose') actionBox.textContent = 'You lose this round.';
+    else if(choice === 'tie') actionBox.textContent = 'It\'s a tie';
+
+    scoreBox.textContent = 'Round: ' + round + 
+    '\nPlayer Score: ' + playerScore + 
+    '\nComputer Score: ' + compScore;
 }
 
 //runs exactly 1 round of rock-paper-scissors
-function playRound(playerSelection, computerSelection) {
+const playRound = function() {
+    const playerChoice = this.id;
+    const compChoice = computerPlay();
+    console.log(playerChoice);
+    console.log(compChoice);
     switch (true) {
-        case (playerSelection==="ROCK" && computerSelection==="ROCK"):
-            console.log(`It's a tie! ${playerSelection} ties with ${computerSelection}`);
-            return 'tie';
-            case (playerSelection==="ROCK" && computerSelection==="SCISSORS"):
-                console.log(`You win! ${playerSelection} beats ${computerSelection}`);
-                return 'win';
-                case (playerSelection==="ROCK" && computerSelection==="PAPER"):
-                    console.log(`You lose! ${playerSelection} loses to ${computerSelection}`);
-                    return 'lose';
-                    case (playerSelection==="PAPER" && computerSelection==="PAPER"):
-                        console.log(`It's a tie! ${playerSelection} ties with ${computerSelection}`);
-                        return 'tie';
-                        case (playerSelection==="PAPER" && computerSelection==="ROCK"):
-                            console.log(`You win! ${playerSelection} beats ${computerSelection}`);
-                            return 'win';
-                            case (playerSelection==="PAPER" && computerSelection==="SCISSORS"):
-                                console.log(`You lose! ${playerSelection} loses to ${computerSelection}`);
-                                return 'lose';
-                                case (playerSelection==="SCISSORS" && computerSelection==="SCISSORS"):
-                                    console.log(`It's a tie! ${playerSelection} ties with ${computerSelection}`);
-                                    return 'tie';
-                                    case (playerSelection==="SCISSORS" && computerSelection==="PAPER"):
-                                        console.log(`You win! ${playerSelection} beats ${computerSelection}`);
-                                        return 'win';
-                                        case (playerSelection==="SCISSORS" && computerSelection==="ROCK"):
-                                            console.log(`You lose! ${playerSelection} loses to ${computerSelection}`);
-                                            return 'lose';
-                                            default:
-            break;    
-        }
-        
+        case (playerChoice === 'rock' && compChoice === 'rock'):
+            round++;
+            displayScore('tie');
+            break;
+        case (playerChoice === 'rock' && compChoice === 'scissors'):
+            round++;
+            playerScore++;
+            displayScore('win');
+           break;
+        case (playerChoice === 'rock' && compChoice === 'paper'):
+            round++;
+            compScore++;
+            displayScore('lose');
+            break;
+        case (playerChoice === 'paper' && compChoice === 'paper'):
+            round++;
+            displayScore('tie');
+            break;
+        case (playerChoice === 'paper' && compChoice === 'rock'):
+            round++;
+            playerScore++;
+            displayScore('win');
+            break;
+        case (playerChoice === 'paper' && compChoice === 'scissors'):
+            round++;
+            compScore++;
+            displayScore('lose');
+            break;
+        case (playerChoice === 'scissors' && compChoice === 'scissors'):
+            round++;
+            displayScore('tie');
+            break;
+        case (playerChoice === 'scissors' && compChoice === ''):
+            round++;
+            playerScore++;
+            displayScore('win');
+            break;
+        case (playerChoice === 'scissors' && compChoice === 'rock'):
+            round++;
+            compScore++;
+            displayScore('lose');
+            break;          
     }
+};
+
+//activates on 5th round
+const checkWinner = function() {
+    if(round < 5) return;
+
+    if(playerScore > compScore) actionBox.textContent = "Congratulations, you win the game!";
+    if(playerScore < compScore) actionBox.textContent = "Sorry, you lost the game.";
+    if(playerScore === compScore) actionBox.textContent = "You tied the game.";
+
+    round = 0;
+}
     
-    //plays 5 rounds of rock-paper-scissors
-    // function game() {
-        //     let playerScore = 0;
-        //     let computerScore = 0;
-        //     let result;
-        //     for (let i=0; i<5; i++) {
-            //     let playerSelection = prompt("Pick: Rock, Paper, or Scissors.");
-            //     result = playRound(playerSelection.toUpperCase(),computerPlay());
-            //     if (result === 'win') playerScore++;
-            //     else if (result === 'lose') computerScore++;
-            //     console.log(`Player Score:${playerScore} || Computer Score:${computerScore}`);
-            //     }
-            
-            //     if(playerScore > computerScore) console.log('Congrats, you win the game!')
-            //     else if(playerScore < computerScore) console.log('Sorry, you lost the game.')
-            //     else console.log('You tied the game.')
-            // }
-            
-//play game when clicked
-rockBtn.addEventListener('click', rockPlay);
-            
+//play game when clicked and check winner after 5 rounds
+rockBtn.addEventListener('click', playRound);
+rockBtn.addEventListener('click', checkWinner);
+paperBtn.addEventListener('click', playRound);
+paperBtn.addEventListener('click', checkWinner);
+scissorsBtn.addEventListener('click', playRound);
+scissorsBtn.addEventListener('click', checkWinner);
+          

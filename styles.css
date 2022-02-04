@@ -10,7 +10,12 @@ body {
     width: 35vh;
     height: 20vh;
     background-color: aliceblue;
-    border: 1px solid black;    
+    border: 1px solid black; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: 500;  
 }
 
 #score {
@@ -19,4 +24,6 @@ body {
     background-color: lightyellow;
     border: 1px solid black;
     margin: 0.5em 0;
+    white-space: pre;
+    text-align: center;
 }
